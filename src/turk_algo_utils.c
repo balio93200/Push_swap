@@ -1,5 +1,4 @@
 #include "push_swap.h"
-
 int find_min_index(t_stack *stack)
 {
     int min_value = stack->head->value;

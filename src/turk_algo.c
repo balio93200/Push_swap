@@ -12,11 +12,17 @@ void turk_algorithm(t_push_swap *push_swap)
         return;
     if (push_swap->stack_a.size == 3)
         return (sort_three_elements(push_swap, &push_swap->stack_a));
-    push_b(push_swap);
-    push_b(push_swap);
+    if (push_swap->stack_a.size == 4)
+        push_b(push_swap);
+    else
+    {
+        push_b(push_swap);
+        push_b(push_swap);
+    }
     while (push_swap->stack_a.size > 3)
     {
         cheapest_index = find_cheapest(push_swap);
+        ft_printf("%d\n", cheapest_index);
         rotate_to_top(&push_swap->stack_a, cheapest_index);
         push_b(push_swap);
     }
@@ -27,7 +33,35 @@ void turk_algorithm(t_push_swap *push_swap)
         rotate_to_top(&push_swap->stack_a, correct_pos);
         push_a(push_swap);
     }
+    bring_max_to_bottom(&push_swap->stack_a);
+
     bring_min_to_top(&push_swap->stack_a);
+}
+void bring_max_to_bottom(t_stack *stack)
+{
+    int max_index = find_max_index(stack);
+    rotate_to_top(stack, max_index);
+    reverse_rotate(stack);
+}
+
+int find_max_index(t_stack *stack)
+{
+    t_node *current = stack->head;
+    int max_value = current->value;
+    int index = 0;
+    int max_index = 0;
+
+    while (current != NULL)
+    {
+        if (current->value > max_value)
+        {
+            max_value = current->value;
+            max_index = index;
+        }
+        current = current->next;
+        index++;
+    }
+    return max_index;
 }
 
 int calculate_operations(t_push_swap *push_swap, int value)
@@ -57,7 +91,6 @@ void sort_three_elements(t_push_swap *push_swap, t_stack *stack)
     int a = stack->head->value;
     int b = stack->head->next->value;
     int c = stack->head->next->next->value;
-
     if (a > b && b < c && a < c)
         sa(push_swap);  
     else if (a > b && b > c)

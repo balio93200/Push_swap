@@ -6,5 +6,6 @@ int main(int argc, char **argv)
     init(&push_swap, argc, argv);
     turk_algorithm(&push_swap);
     print_stack(&push_swap, STACK_A);
+    print_stack(&push_swap, STACK_B);
     clean_up(&push_swap);
 }

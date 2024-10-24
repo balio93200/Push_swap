@@ -3,6 +3,7 @@
 #include "stack.h"
 #include <stdio.h>
 #include <limits.h>
+#include <stdlib.h>
 typedef struct s_push_swap {
     t_stack stack_a;
     t_stack stack_b;
@@ -32,4 +33,6 @@ void sb(t_push_swap *push_swap);
 void ss(t_push_swap *push_swap);
 void rra(t_push_swap *push_swap);
 void rrb(t_push_swap *push_swap);
+void bring_max_to_bottom(t_stack *stack);
+int find_max_index(t_stack *stack);
 #endif
